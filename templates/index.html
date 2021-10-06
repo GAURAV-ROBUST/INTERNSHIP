@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %} Home{% endblock title %} 
+{% block body %}
+
+    <div class="container my-3">
+        <h2>Add a Product</h2>
+        <form action="/" method="POST">
+            <div class="mb-3">
+              <label for="title" class="form-label">Product ID</label>
+              <input type="text" class="form-control" name="product_id" id="product_id" aria-describedby="emailHelp"> 
+            </div>
+            <div class="mb-3">
+              <label for="desc" class="form-label">Product Name</label>
+              <input type="text" class="form-control" name="product_name" id="product_name">
+            </div>
+            <div class="mb-3">
+              <label for="desc" class="form-label">Location</label>
+              <input type="text" class="form-control" name="location" id="location">
+            </div>
+            <div class="mb-3">
+              <label for="desc" class="form-label">Location ID</label>
+              <input type="text" class="form-control" name="location_id" id="location_id">
+            </div>
+            
+            <button type="submit" class="btn btn-dark">Submit</button>
+          </form>
+    </div>
+
+    <div class="container my-3">
+        <h2>Product Details</h2>
+        
+                {% if allpro|length == 0 %}
+                   
+                <div class="alert alert-dark" role="alert">
+                    No Product found. Add your first Product now!
+                  </div>
+                    {% else %} 
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">SNo</th>
+                            <th scope="col">Product ID</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Actions</th>
+                          </tr>
+                        </thead>
+                        
+                        <tbody>
+              {% for pro in allpro %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{pro.product_id}}</td>
+                <td>{{pro.product_name}}</td>
+                <td>{{pro.to_location}}</td>
+                <td>{{pro.date_created}}</td>
+                <td>
+                  <a href="/move/{{pro.sno}}" type="button" class="btn btn-outline-dark btn-sm mx-1">Move</button>
+                  <a href="/delete/{{pro.sno}}" type="button" class="btn btn-outline-dark btn-sm mx-1">Delete</button>
+                
+                </td>
+              </tr>
+              
+              {% endfor %}
+            </tbody>
+            </table>
+              {% endif %}
+               
+           
+    </div>
+{% endblock body %}
